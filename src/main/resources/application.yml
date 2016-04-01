@@ -1,0 +1,15 @@
+server:
+  port: 8080
+
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+
+consumed.microservice.name: "microservice1"
+
+turbine:
+  aggregator:
+    clusterConfig: microserviceconsumer
+  appConfig: microserviceconsumer
