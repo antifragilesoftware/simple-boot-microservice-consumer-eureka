@@ -18,10 +18,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = SimpleBootMicroserviceApplication.class)
+@SpringApplicationConfiguration(classes = SimpleBootMicroserviceConsumerApplication.class)
 @WebAppConfiguration
 @IntegrationTest({"server.port=0", "spring.cloud.bus.enabled=false", "spring.cloud.discovery.enabled=false"})
-public class SimpleBootMicroserviceApplicationTests {
+public class SimpleBootMicroserviceConsumerApplicationTests {
 
     private MockMvc mockMvc;
 

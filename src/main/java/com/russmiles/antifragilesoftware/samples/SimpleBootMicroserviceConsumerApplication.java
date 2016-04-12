@@ -9,8 +9,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +20,9 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @RestController
-@EnableEurekaClient
+@EnableDiscoveryClient
 @EnableHystrix
-public class SimpleBootMicroserviceApplication {
+public class SimpleBootMicroserviceConsumerApplication {
 
     @Value("${consumed.microservice.name}")
     private String consumedServiceName;
@@ -31,6 +32,12 @@ public class SimpleBootMicroserviceApplication {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @LoadBalanced
+    @Bean
+    RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
 
     @RequestMapping("/")
     @HystrixCommand
@@ -62,6 +69,6 @@ public class SimpleBootMicroserviceApplication {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(SimpleBootMicroserviceApplication.class, args);
+        SpringApplication.run(SimpleBootMicroserviceConsumerApplication.class, args);
     }
 }
